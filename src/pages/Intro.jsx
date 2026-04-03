@@ -72,7 +72,7 @@ export default function Intro() {
                   />
                 </div>
                 <div className="p-4">
-                  <div className="text-[10px] md:text-[11px] t-muted leading-relaxed">{meta.description}</div>
+                  <div className="text-xs md:text-sm t-muted leading-relaxed">{meta.description}</div>
                 </div>
               </div>
             );
@@ -82,13 +82,13 @@ export default function Intro() {
         {/* 2열 레이아웃 — 데스크탑에서 폼 + 안내 나란히 */}
         <div className="max-w-2xl mx-auto">
           <div className="glass-card-bright rounded-2xl p-6 md:p-10 glow-border">
-            <h2 className="text-lg font-bold t-primary mb-1">응시자 정보 입력</h2>
-            <p className="text-xs t-muted mb-6">필수 항목(*)을 입력하고 진단을 시작하세요.</p>
+            <h2 className="text-xl font-bold t-primary mb-1">응시자 정보 입력</h2>
+            <p className="text-sm t-muted mb-6">필수 항목(*)을 입력하고 진단을 시작하세요.</p>
 
             <div className="grid md:grid-cols-2 gap-4">
               {/* 이름 */}
               <div>
-                <label className="block text-sm t-secondary mb-1.5">
+                <label className="block text-base t-secondary mb-1.5">
                   이름 <span className="text-indigo-400">*</span>
                 </label>
                 <input type="text" value={userInfo.name} onChange={e => handleChange('name', e.target.value)} className={inputClass} placeholder="홍길동" />
@@ -97,7 +97,7 @@ export default function Intro() {
 
               {/* 소속 기관 */}
               <div>
-                <label className="block text-sm t-secondary mb-1.5">
+                <label className="block text-base t-secondary mb-1.5">
                   소속 기관 <span className="text-indigo-400">*</span>
                 </label>
                 <input type="text" value={userInfo.organization} onChange={e => handleChange('organization', e.target.value)} className={inputClass} placeholder="OO부" />
@@ -106,7 +106,7 @@ export default function Intro() {
 
               {/* 부서명 */}
               <div>
-                <label className="block text-sm t-secondary mb-1.5">
+                <label className="block text-base t-secondary mb-1.5">
                   부서명 <span className="text-indigo-400">*</span>
                 </label>
                 <input type="text" value={userInfo.department} onChange={e => handleChange('department', e.target.value)} className={inputClass} placeholder="디지털혁신과" />
@@ -115,13 +115,13 @@ export default function Intro() {
 
               {/* 직급 */}
               <div>
-                <label className="block text-sm t-secondary mb-1.5">직급 (선택)</label>
+                <label className="block text-base t-secondary mb-1.5">직급 (선택)</label>
                 <input type="text" value={userInfo.job_level} onChange={e => handleChange('job_level', e.target.value)} className={inputClass} placeholder="사무관" />
               </div>
 
               {/* AI 활용 경력 — 전체 폭 */}
               <div className="md:col-span-2">
-                <label className="block text-sm t-secondary mb-1.5">AI 활용 경력 (선택)</label>
+                <label className="block text-base t-secondary mb-1.5">AI 활용 경력 (선택)</label>
                 <select value={userInfo.experience_years} onChange={e => handleChange('experience_years', e.target.value)} className={inputClass}>
                   <option value="">선택하세요</option>
                   <option value="없음">없음</option>

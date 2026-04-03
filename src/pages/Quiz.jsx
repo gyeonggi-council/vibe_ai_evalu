@@ -158,8 +158,8 @@ export default function Quiz() {
       <div className="max-w-2xl mx-auto">
         {/* 헤더 */}
         <div className="mb-8">
-          <div className="text-center mb-4">
-            <span className="text-sm t-muted">2부 상황형 확인</span>
+          <div className="text-center mb-3">
+            <h2 className="text-lg md:text-xl font-bold t-primary">2부 상황형 확인</h2>
           </div>
           <ProgressBar
             current={currentQ + 1}
@@ -170,12 +170,7 @@ export default function Quiz() {
 
         {/* 문항 */}
         <div className="glass-card-bright rounded-2xl p-6 md:p-8 mb-6 glow-border">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-white/[0.06] border border-white/[0.08] t-muted">
-              {q.areaLabel}
-            </span>
-          </div>
-          <div className="text-sm md:text-base t-secondary leading-relaxed mb-6">
+          <div className="text-base t-primary leading-relaxed mb-6 font-medium">
             {renderQuestionText(q.text)}
           </div>
 
@@ -185,13 +180,13 @@ export default function Quiz() {
               <button
                 key={key}
                 onClick={() => handleSelect(key)}
-                className={`w-full text-left px-4 py-3.5 rounded-xl border transition-all text-sm ${
+                className={`w-full text-left px-5 py-4 rounded-xl border transition-all duration-200 text-base ${
                   selectedAnswer === key
-                    ? 'border-indigo-400/50 bg-indigo-500/15 text-white shadow-lg shadow-indigo-500/10'
-                    : 'border-white/[0.06] bg-white/[0.02] t-secondary hover:border-white/[0.12] hover:bg-white/[0.04]'
+                    ? 'border-indigo-400/50 bg-indigo-500/15 t-primary shadow-lg shadow-indigo-500/10 scale-[1.01]'
+                    : 'border-white/[0.06] bg-white/[0.02] t-secondary hover:border-indigo-400/30 hover:bg-indigo-500/[0.06] hover:scale-[1.01] hover:shadow-md'
                 }`}
               >
-                <span className={`inline-flex items-center justify-center w-6 h-6 rounded-full text-xs font-bold mr-3 ${
+                <span className={`inline-flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold mr-3 ${
                   selectedAnswer === key
                     ? 'bg-indigo-500 text-white'
                     : 'bg-white/[0.08] t-muted'
