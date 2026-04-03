@@ -106,6 +106,7 @@ body {
   background: var(--bg-app);
   position: relative;
   transition: background 0.4s ease;
+  overflow-x: hidden;
 }
 .app-bg::before {
   content: '';
@@ -125,6 +126,10 @@ body {
 .app-bg > * {
   position: relative;
   z-index: 1;
+}
+.theme-toggle-btn {
+  position: fixed !important;
+  z-index: 100 !important;
 }
 
 /* ===== Glass Cards ===== */
