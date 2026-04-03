@@ -31,6 +31,22 @@ export default function Admin() {
   const [filterDateFrom, setFilterDateFrom] = useState('');
   const [filterDateTo, setFilterDateTo] = useState('');
   const [selectedRow, setSelectedRow] = useState(null);
+  const [deleting, setDeleting] = useState(null);
+
+  // 삭제 처리
+  const handleDelete = async (id, name) => {
+    if (!window.confirm(`"${name}" 님의 응시 결과를 삭제하시겠습니까?\n이 작업은 되돌릴 수 없습니다.`)) return;
+    setDeleting(id);
+    const { error } = await supabase.from('responses').delete().eq('id', id);
+    if (!error) {
+      fetchData();
+      fetchAll();
+      if (selectedRow?.id === id) setSelectedRow(null);
+    } else {
+      alert('삭제에 실패했습니다: ' + error.message);
+    }
+    setDeleting(null);
+  };
 
   // 로그인 처리
   const handleLogin = async () => {
@@ -305,7 +321,7 @@ export default function Admin() {
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-white/[0.06]">
-                {['응시 일시', '이름', '소속', '부서', '총점', '퀴즈', '판정유형', '상세'].map(h => (
+                {['응시 일시', '이름', '소속', '부서', '총점', '퀴즈', '판정유형', '상세', '삭제'].map(h => (
                   <th key={h} className="px-4 py-3 text-left text-xs font-medium t-muted whitespace-nowrap">
                     {h}
                   </th>
@@ -315,13 +331,13 @@ export default function Admin() {
             <tbody>
               {loading ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center t-muted">
+                  <td colSpan={9} className="px-4 py-8 text-center t-muted">
                     <div className="animate-spin w-6 h-6 border-2 border-indigo-500 border-t-transparent rounded-full mx-auto" />
                   </td>
                 </tr>
               ) : responses.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-8 text-center t-muted">데이터가 없습니다.</td>
+                  <td colSpan={9} className="px-4 py-8 text-center t-muted">데이터가 없습니다.</td>
                 </tr>
               ) : (
                 responses.map(r => (
@@ -351,6 +367,15 @@ export default function Admin() {
                         className="text-indigo-400 hover:text-indigo-300 text-xs underline"
                       >
                         상세보기
+                      </button>
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => handleDelete(r.id, r.name)}
+                        disabled={deleting === r.id}
+                        className="text-red-400 hover:text-red-300 text-xs underline disabled:opacity-50"
+                      >
+                        {deleting === r.id ? '삭제중...' : '삭제'}
                       </button>
                     </td>
                   </tr>
@@ -390,7 +415,8 @@ export default function Admin() {
             onClick={() => setSelectedRow(null)}
           >
             <div
-              className="glass-card-bright rounded-2xl glow-border max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6"
+              className="rounded-2xl glow-border max-w-2xl w-full max-h-[80vh] overflow-y-auto p-6"
+              style={{ background: 'var(--bg-body)' }}
               onClick={e => e.stopPropagation()}
             >
               <div className="flex justify-between items-center mb-6">
@@ -471,6 +497,17 @@ export default function Admin() {
                     </div>
                   );
                 })}
+              </div>
+
+              {/* 삭제 버튼 */}
+              <div className="mt-6 pt-4 border-t border-white/[0.06]">
+                <button
+                  onClick={() => handleDelete(selectedRow.id, selectedRow.name)}
+                  disabled={deleting === selectedRow.id}
+                  className="w-full py-3 rounded-xl text-base font-medium text-red-500 border border-red-500/30 hover:bg-red-500/10 transition-all disabled:opacity-50"
+                >
+                  {deleting === selectedRow.id ? '삭제 중...' : '이 응시자 결과 삭제'}
+                </button>
               </div>
             </div>
           </div>
