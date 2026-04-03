@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAssessment } from '../context/AssessmentContext';
 import { TYPE_META } from '../utils/scoring';
@@ -12,6 +12,7 @@ export default function Intro() {
   const { userInfo, setUserInfo, resetAll } = useAssessment();
   const [agreed, setAgreed] = useState(false);
   const [errors, setErrors] = useState({});
+  const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => { resetAll(); }, []);
 
@@ -61,14 +62,15 @@ export default function Intro() {
             return (
               <div
                 key={key}
-                className="glass-card rounded-2xl overflow-hidden text-center transition-all duration-300 hover:scale-[1.03] cursor-default group"
+                className="glass-card rounded-2xl overflow-visible text-center transition-all duration-300 cursor-pointer group relative"
                 style={{ borderColor: meta.color + '25' }}
+                onClick={() => setPreviewImage(previewImage === key ? null : key)}
               >
-                <div className="w-full aspect-[16/10] overflow-hidden">
+                <div className="w-full aspect-[16/10] overflow-hidden rounded-t-2xl">
                   <img
                     src={meta.image}
                     alt={meta.label}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                   />
                 </div>
                 <div className="p-4">
@@ -78,6 +80,25 @@ export default function Intro() {
             );
           })}
         </div>
+
+        {/* 이미지 확대 모달 */}
+        {previewImage && (
+          <div
+            className="fixed inset-0 bg-black/70 z-[200] flex items-center justify-center p-6 cursor-pointer"
+            onClick={() => setPreviewImage(null)}
+          >
+            <div className="max-w-2xl w-full rounded-2xl overflow-hidden shadow-2xl" onClick={e => e.stopPropagation()}>
+              <img
+                src={TYPE_META[previewImage].image}
+                alt={TYPE_META[previewImage].label}
+                className="w-full h-auto"
+              />
+              <div className="p-5 text-center" style={{ background: 'var(--bg-body)' }}>
+                <p className="text-lg t-primary font-medium leading-relaxed">{TYPE_META[previewImage].description}</p>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* 2열 레이아웃 — 데스크탑에서 폼 + 안내 나란히 */}
         <div className="max-w-2xl mx-auto">
