@@ -49,7 +49,7 @@ export default function Intro() {
           <h1 className="text-3xl md:text-5xl font-extrabold gradient-text mb-4 leading-tight">
             공무원 AI 바이브 코딩<br className="md:hidden" /> 역량 자가진단
           </h1>
-          <p className="t-muted text-base md:text-lg max-w-xl mx-auto">
+          <p className="t-muted text-lg md:text-xl max-w-xl mx-auto">
             설문 15문항과 상황형 퀴즈 10문항으로<br className="md:hidden" /> 나의 AI 활용 역량을 진단합니다.
           </p>
         </div>
