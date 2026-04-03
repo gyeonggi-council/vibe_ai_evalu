@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+@theme {
+  --color-basic: #60A5FA;
+  --color-utilize: #34D399;
+  --color-build: #A78BFA;
+  --color-extend: #FBBF24;
+  --color-operate: #F87171;
+}
+
+/* ===== CSS Variables: Light (default) / Dark ===== */
+:root, [data-theme="light"] {
+  --bg-body: #f0f2f8;
+  --bg-app: linear-gradient(135deg, #f0f2f8 0%, #e8ecf4 25%, #eef1fa 50%, #e8ecf4 75%, #f0f2f8 100%);
+  --bg-orb1: rgba(99, 102, 241, 0.06);
+  --bg-orb2: rgba(139, 92, 246, 0.05);
+  --bg-orb3: rgba(6, 182, 212, 0.03);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-bg-hover: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(99, 102, 241, 0.1);
+  --glass-border-hover: rgba(99, 102, 241, 0.18);
+  --glass-bright-bg: rgba(255, 255, 255, 0.8);
+  --glass-bright-border: rgba(99, 102, 241, 0.12);
+  --text-primary: #1e1b4b;
+  --text-secondary: #4b5563;
+  --text-muted: #6b7280;
+  --text-on-glass: #1e1b4b;
+  --input-bg: rgba(255, 255, 255, 0.6);
+  --input-border: rgba(99, 102, 241, 0.15);
+  --input-focus-border: rgba(99, 102, 241, 0.4);
+  --input-text: #1e1b4b;
+  --input-placeholder: #9ca3b8;
+  --badge-bg: rgba(99, 102, 241, 0.08);
+  --badge-border: rgba(99, 102, 241, 0.15);
+  --badge-text: #6366f1;
+  --glow-color: rgba(99, 102, 241, 0.08);
+  --glow-border: rgba(99, 102, 241, 0.1);
+  --tag-bg: rgba(99, 102, 241, 0.06);
+  --tag-border: rgba(99, 102, 241, 0.1);
+  --progress-track: rgba(99, 102, 241, 0.08);
+  --scroll-thumb: rgba(99, 102, 241, 0.2);
+  --scroll-thumb-hover: rgba(99, 102, 241, 0.35);
+  --divider: rgba(99, 102, 241, 0.08);
+  --toggle-bg: rgba(255, 255, 255, 0.8);
+  --toggle-border: rgba(99, 102, 241, 0.15);
+  --toggle-color: #6366f1;
+  --chart-grid: rgba(99, 102, 241, 0.08);
+  --chart-label: #4b5563;
+  --table-row-hover: rgba(99, 102, 241, 0.04);
+}
+
+[data-theme="dark"] {
+  --bg-body: #0a0e1a;
+  --bg-app: linear-gradient(135deg, #0a0e1a 0%, #0f1629 25%, #131a35 50%, #0f1629 75%, #0a0e1a 100%);
+  --bg-orb1: rgba(99, 102, 241, 0.08);
+  --bg-orb2: rgba(139, 92, 246, 0.06);
+  --bg-orb3: rgba(6, 182, 212, 0.04);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-bg-hover: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-border-hover: rgba(255, 255, 255, 0.1);
+  --glass-bright-bg: rgba(255, 255, 255, 0.05);
+  --glass-bright-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-on-glass: #f1f5f9;
+  --input-bg: rgba(255, 255, 255, 0.04);
+  --input-border: rgba(255, 255, 255, 0.08);
+  --input-focus-border: rgba(99, 102, 241, 0.5);
+  --input-text: #f1f5f9;
+  --input-placeholder: #64748b;
+  --badge-bg: rgba(99, 102, 241, 0.12);
+  --badge-border: rgba(99, 102, 241, 0.2);
+  --badge-text: #a5b4fc;
+  --glow-color: rgba(99, 102, 241, 0.05);
+  --glow-border: rgba(99, 102, 241, 0.1);
+  --tag-bg: rgba(255, 255, 255, 0.04);
+  --tag-border: rgba(255, 255, 255, 0.06);
+  --progress-track: rgba(255, 255, 255, 0.06);
+  --divider: rgba(255, 255, 255, 0.05);
+  --toggle-bg: rgba(255, 255, 255, 0.06);
+  --toggle-border: rgba(255, 255, 255, 0.1);
+  --toggle-color: #e2e8f0;
+  --chart-grid: rgba(99, 102, 241, 0.08);
+  --chart-label: #cbd5e1;
+  --table-row-hover: rgba(255, 255, 255, 0.03);
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--bg-body);
+  color: var(--text-primary);
+  transition: background 0.4s ease, color 0.3s ease;
+}
+
+/* ===== Background ===== */
+.app-bg {
+  background: var(--bg-app);
+  position: relative;
+  transition: background 0.4s ease;
+}
+.app-bg::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(ellipse at 20% 20%, var(--bg-orb1) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, var(--bg-orb2) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, var(--bg-orb3) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.4s ease;
+}
+.app-bg > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ===== Glass Cards ===== */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  transition: all 0.3s ease;
+}
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--glass-border-hover);
+}
+.glass-card-bright {
+  background: var(--glass-bright-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-bright-border);
+  transition: all 0.3s ease;
+}
+
+/* ===== Text helpers ===== */
+.t-primary { color: var(--text-primary); }
+.t-secondary { color: var(--text-secondary); }
+.t-muted { color: var(--text-muted); }
+
+/* ===== Gradient text ===== */
+.gradient-text {
+  background: linear-gradient(135deg, #6366f1, #a855f7, #06b6d4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Gradient button ===== */
+.btn-gradient {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3);
+}
+.btn-gradient:hover {
+  box-shadow: 0 6px 30px rgba(99, 102, 241, 0.45);
+  transform: translateY(-1px);
+}
+.btn-gradient:active { transform: translateY(0); }
+
+/* ===== Glow border ===== */
+.glow-border {
+  box-shadow: 0 0 0 1px var(--glow-border), 0 0 20px var(--glow-color);
+}
+
+/* ===== Progress ===== */
+.progress-glow { box-shadow: 0 0 10px rgba(99, 102, 241, 0.4); }
+
+/* ===== Input ===== */
+.theme-input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--input-text);
+  transition: all 0.2s ease;
+}
+.theme-input::placeholder { color: var(--input-placeholder); }
+.theme-input:focus {
+  border-color: var(--input-focus-border);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+/* ===== Theme toggle button ===== */
+.theme-toggle-btn {
+  background: var(--toggle-bg);
+  border: 1px solid var(--toggle-border);
+  color: var(--toggle-color);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.theme-toggle-btn:hover {
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.15);
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--scroll-thumb, rgba(99,102,241,0.2)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--scroll-thumb-hover, rgba(99,102,241,0.35)); }
+
+/* ===== Badge animation ===== */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.15); }
+  50% { box-shadow: 0 0 25px rgba(99, 102, 241, 0.3); }
+}
+.badge-glow { animation: pulse-glow 3s ease-in-out infinite; }
